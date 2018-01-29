@@ -1,0 +1,9 @@
+Trying to add new property 'svn:global-ignores'
+but the property already exists.
+<<<<<<< (local property value)
+out
+||||||| (incoming 'changed from' value)
+=======
+node_modules
+bin
+>>>>>>> (incoming 'changed to' value)
