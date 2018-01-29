@@ -1,7 +1,0 @@
-node_modules/
-temp/
-.gitignore
-.elasticbeanstalk/
-.svn/
-
-*.zip
