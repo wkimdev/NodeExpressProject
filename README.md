@@ -9,17 +9,3 @@ Express, Node js , AWS, MySQL
 1. Node js, Express 기반 BackEnd단 구성
 2. AWS S3스토리 파일업로드 구성
 3. 테이블설계, ERD 작성
-
-
-
-# 1
-대신 테스트~
-## 2
-
-### 3
-
-#### 4
-
-##### 5
-
-###### 6
