@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Dashboard</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!-- Bootstrap 3.3.7 -->
+<link rel="stylesheet" href="/admin/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="/admin/bower_components/font-awesome/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="/admin/bower_components/Ionicons/css/ionicons.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="/admin/dist/css/AdminLTE.min.css">
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet" href="/admin/dist/css/skins/_all-skins.min.css">
+<!-- Morris chart -->
+<link rel="stylesheet" href="/admin/bower_components/morris.js/morris.css">
+<!-- jvectormap -->
+<link rel="stylesheet" href="/admin/bower_components/jvectormap/jquery-jvectormap.css">
+<!-- Date Picker -->
+<link rel="stylesheet" href="/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+<!-- Daterange picker -->
+<link rel="stylesheet" href="/admin/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<!-- bootstrap wysihtml5 - text editor -->
+<link rel="stylesheet" href="/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+<link rel="stylesheet" href="/admin/bower_components/bootstrap-table/dist/bootstrap-table.min.css">
+<link rel="stylesheet" href="/admin/plugins/summernote-0.8.9-dist/dist/summernote.css">
+
+<!-- Google Font -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+<script src="/admin/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/admin/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script>
+$.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<script src="/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Morris.js charts -->
+<script src="/admin/bower_components/raphael/raphael.min.js"></script>
+<script src="/admin/bower_components/morris.js/morris.min.js"></script>
+<!-- Sparkline -->
+<script src="/admin/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+<!-- jvectormap -->
+<script src="/admin/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="/admin/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="/admin/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="/admin/bower_components/moment/min/moment.min.js"></script>
+<script src="/admin/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- datepicker -->
+<script src="/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<!-- <script src="/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script> -->
+<!-- Slimscroll -->
+<script src="/admin/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="/admin/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- bootstrap-table -->
+<script src="/admin/bower_components/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/admin/dist/js/adminlte.min.js"></script>
+<script src="/admin/plugins/summernote-0.8.9-dist/dist/summernote.min.js"></script>
+<script src="/admin/plugins/summernote-0.8.9-dist/dist/lang/summernote-ko-KR.js"></script>
+<script src="/admin/_templete/includeHTML.js"></script>
+<script src="/admin/_templete/includeHTML2.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+	$(document).ready(function () {
+		// 좌측 메뉴
+//		$('#areaLeftMenu').load('./_templete/leftSide.html');
+	});
+//]]>
+</script>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+	<header class="main-header">
+		<a href="/admin/index.html" class="logo">
+			<span class="logo-mini"><b>밥상머리</b></span>
+			<span class="logo-lg"><b>밥상머리</b></span>
+		</a>
+		<div include-html-top="/admin/_templete/navbar.html"></div>
+	</header>
+
+	<div include-html="/admin/_templete/leftSideB.html"></div>
+	
+	<div class="content-wrapper">
+		<section class="content-header">
+			<h1>
+				진도토픽
+				<small>진도과정 관리</small>
+			</h1>
+			<ol class="breadcrumb">
+				<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+				<li class="active">진도토픽</li>
+			</ol>
+		</section>
+		<section class="content">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="box">
+						<div class="box-header with-border">
+							<h3 class="box-title">진도과정 관리</h3>
+						</div>
+						<div class="box-body">
+							<table id="tblProgress" class="table table-bordered">
+								<thead>
+									<tr>
+										<th>선택</th>
+										<th>주차</th>
+										<th>학년</th>
+										<th>과목</th>
+										<th>질문수</th>
+										<th>등록일</th>
+										<th>관리</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+						<div class="box-footer">
+							<button type="button" id="btnProgressDelete" class="btn btn-primary pull-left" data-toggle="modal" data-target="">선택삭제</button>
+							<button type="submit" class="btn btn-primary pull-right" data-event="edReset" data-toggle="modal" data-target="#myModal">교과과정 등록</button> 
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</section>
+	</div>
+
+	<footer class="main-footer">
+		<div class="pull-right hidden-xs">
+			<b>Version</b> 2.4.0
+		</div>
+		<strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights reserved.
+	</footer>
+	<div class="control-sidebar-bg"></div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<form id="frm" name="frm" enctype="multipart/form-data" method="post">	
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">진도 등록</h4>
+			</div>
+			<div class="modal-body">
+				<form id="frm" name="frm">
+					<input type="hidden" id="cmdType" name="cmdType" value="INSERT" />
+					<input type="hidden" id="boardId" name="boardId" />
+				 	<input type="hidden" id="gradeCodeNm" name="gradeCodeNm" />
+					<input type="hidden" id="monthCodeNm" name="monthCodeNm" />
+					<input type="hidden" id="monthWeekCodeNm" name="monthWeekCodeNm" />
+					<input type="hidden" id="subjectCodeNm" name="subjectCodeNm" /> 
+					<input type="hidden" id="pickClassBoardId" name="pickClassBoardId" />
+					<input type="hidden" id="pickBookBoardId" name="pickBookBoardId" />
+
+						<div class="form-group">
+							<label for="gradeCodeNb">학년 선택</label>
+							<select class="form-control" id="gradeCodeNb" name="gradeCodeNb">
+								<option value=1>1학년</option>
+								<option value=2>2학년</option>
+								<option value=3>3학년</option>
+								<option value=4>4학년</option>
+								<option value=5>5학년</option>
+								<option value=6>6학년</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="monthCodeNb">과정 월</label>
+							<select class="form-control" id="monthCodeNb" name="monthCodeNb">
+								<option value=01>1월</option>
+								<option value=02>2월</option>
+								<option value=03>3월</option>
+								<option value=04>4월</option>
+								<option value=05>5월</option>
+								<option value=06>6월</option>
+								<option value=07>7월</option>
+								<option value=08>8월</option>
+								<option value=09>9월</option>
+								<option value=10>10월</option>
+								<option value=11>11월</option>
+								<option value=12>12월</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="monthWeekCodeNb">과정 주차</label>
+							<select class="form-control" id="monthWeekCodeNb" name="monthWeekCodeNb">
+								<option value=1>1주차</option>
+								<option value=2>2주차</option>
+								<option value=3>3주차</option>
+								<option value=4>4주차</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="subjectCodeNb">교과 과목</label>
+							<select class="form-control" id="subjectCodeNb" name="subjectCodeNb">
+								<option value=1>국어</option>
+								<option value=2>통합</option>
+								<option value=3>수학</option>
+								<option value=4>사회</option>
+								<option value=5>과학</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="curriculum">교과 과정명</label>
+							<input type="text" class="form-control" id="curriculum" name="curriculum" placeholder="교과 과정명">
+						</div>
+						<div class="form-group">
+								<label for="contents">내용</label>
+								<textarea id="contents" name="contents" class="form-control container" placeholder="Enter text ..."></textarea>
+						</div>
+						<div class="form-group">
+							<label for="curriculum">연계 토픽 설정</label>
+								<form class="form-search form-inline">
+								</form>
+								<form class="form-search form-inline">
+									<div class="input-group">
+										<input type="text" class="form-control search-query" placeholder="진도 토픽 설정..." style="width: 500px;" id="txt_name"/> <span class="input-group-btn">
+										<button type="button" class="btn btn-primary" id="btnSearchClass">검색</button>										
+										</span>
+									</div>
+									선택한 진도토픽 : [ <span id="search_curriculum" name="search_curriculum" ></span> ]
+									<div class="form-group"></div>
+								</form>
+
+								<br>
+								<form class="form-search form-inline">
+								</form>
+								<form class="form-search form-inline">
+									<div class="input-group">
+										<input type="text" class="form-control search-query" placeholder="도서 토픽 설정..." style="width: 500px;" id="txt_book_name"/> <span class="input-group-btn">
+										<button type="button" class="btn btn-primary" id="btnSearchBook">검색</button>
+										</span>
+									</div>
+									 선택한 도서토픽 : [ <span id="search_book" name="search_book" ></span> ]
+									<div class="form-group"></div>
+								</form>
+						</div>
+						
+						<div class="form-group">
+							<input type="hidden" class="form-control" id="addDate" name="addDate">
+						</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">확인</button>
+				<button type="button" id="btnProgress" class="btn btn-primary">저장</button>
+			</div>
+		</div>
+	</div>
+</form>
+</div>
+
+<!-- modal2 text -->
+<div class="modal fade container" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+	<form id="form" name="form" enctype="multipart/form-data" method="post">
+	<input type="hidden" id="cmdType" name="cmdType" value="INSERT" />
+	<input type="hidden" id="pickClassBoardId" name="pickClassBoardId" />
+	<input type="hidden" id="curriculum" name="curriculum" />
+	<input type="hidden" id="boarid" name="curriculum" />
+
+	
+	<section class="content">
+		<div class="row">
+			<div class="col-lg-12" >
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">검색결과...</h3>
+					</div>
+					<Br/><br/>
+					<div class="box-body">
+						<table id="tblProgressSearch" class="table table-bordered">
+							<thead>
+								<tr>
+									<th>선택</th>
+									<th>교과 과목</th>
+									<th>교과 과정명</th>
+									<th>학년</th>
+								</tr>
+							</thead>
+							<tbody><!-- LOOP --></tbody>
+						</table>
+					</div>
+					<div class="box-footer">
+						<button type="button" id="btnSelectClassTp" class="btn btn-primary pull-right" >선정하기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	</form>
+</div>
+
+<!-- modal4 text -->
+<div class="modal fade container" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+		<form id="form" name="form" enctype="multipart/form-data" method="post">
+		<input type="hidden" id="cmdType" name="cmdType" value="INSERT" />
+		<input type="hidden" id="pickBookBoardId" name="pickBookBoardId" />
+		<input type="hidden" id="booknamem" name="bookname" />
+		
+		<section class="content">
+			<div class="row">
+				<div class="col-lg-12" >
+					<div class="box">
+						<div class="box-header with-border">
+							<h3 class="box-title">검색결과...</h3>
+						</div>
+						<Br/><br/>
+						<div class="box-body">
+							<table id="tblBookSearch" class="table table-bordered">
+								<thead>
+									<tr>
+										<th>선택</th>
+										<th>카테고리 이름</th>
+										<th>책이름</th>
+										<th>작가</th>
+										<th>출판사</th>
+									</tr>
+								</thead>
+								<tbody><!-- LOOP --></tbody>
+							</table>
+						</div>
+						<div class="box-footer">
+							<button type="button" id="btnSelectBookTp" class="btn btn-primary pull-right" >선정하기</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		</form>
+</div>
+
+<!-- Modal3 -->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<form id="form" name="form" enctype="multipart/form-data" method="post">
+	<input type="hidden" id="cmdType" name="cmdType" value="INSERT" />
+	<input type="hidden" id="memberNo" name="memberNo" />
+	
+	<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">회원 정보 등록</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="memberType">회원유형</label>
+						<select class="form-control" id="memberType" name="memberType">
+							<option value="1">일반</option>
+							<option value="9">관리자</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="nm">이름</label>
+						<input type="text" class="form-control" id="nm" name="nm">
+					</div>
+					<div class="form-group">
+						<label for="email">이메일(아이디)</label>
+						<input type="email" class="form-control" id="email" name="email">
+					</div>
+					<div class="form-group">
+						<label for="password">비밀번호</label>
+						<input type="password" class="form-control" id="password" name="password">
+					</div>
+					<div class="form-group">
+						<label for="sns">SNS연결관리</label>
+						<div class="radio">
+							<label>
+								<input type="radio" name="sns" id="sns1" value="F">
+								Facebook
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="sns" id="sns2" value="K">
+								Kakao
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="sns" id="sns3" value="N">
+								Naver
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">목록</button>
+					<button type="button" id="btnMemberMng" class="btn btn-primary">확인</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- Image Upload Modal -->
+<div class="modal fade" id="imageUploadModal" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+        <form action="" id="imageUploadForm" name="imageUploadForm" method="post" enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">이미지 업로드</h4>
+                </div>
+
+                <div class="modal-body">
+                    <label class="note-form-label">파일 선택</label>
+                    <input class="note-image-input note-form-control note-input" id="files" type="file" name="files" accept="image/*" multiple="multiple">
+                    <!--<br></br>-->
+                    <!--<label class="note-form-label">사진 URL</label>-->
+                    <!--<input class="note-image-url form-control note-form-control note-input  col-md-12" type="text">-->
+                </div>
+
+                <div class="modal-footer">
+                    <br></br>
+                    <button type="submit" class="btn btn-default" data-dismiss="modal" id="imageUploadBtn">사진추가</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- link Modal -->
+<div class="modal fade" id="linkModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <form action="">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="linkLabel">동영상 링크</h4>
+                </div>
+
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="displayName">
+                    <p class="help-blcok">표시 할 링크</p>
+                    <input type="text" class="form-control" id="linkURL" required>
+                    <p class="help-block">링크 URL 주소</p>
+                </div>
+
+                <div class="modal-footer">
+                    <br></br>
+                    <button type="submit" class="btn btn-default" data-dismiss="modal" id="linkSaveBtn">확인</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>includeHTML();</script>
+<script>includeHTML2();</script>
+<script src="/admin/js/notify.min.js"></script>
+<script src="/admin/js/jquery.cookie-1.4.1.min.js"></script>
+<script src="/admin/js/progressAction.js"></script>
+
+<script>
+
+    // Summernote Btn Custom
+    var ImageUploadBtn = function (context) {
+        var ui = $.summernote.ui;
+        var container = $('#imageUploadModal');
+
+        // create button
+        var imageUploadBtn = ui.button({
+            contents: '<i class="fa fa-picture-o"/>',
+            tooltip: '이미지 업로드',
+            click: function () {
+                container.modal();
+            }
+        });
+
+        return imageUploadBtn.render();   // return button as jquery object
+    };
+
+    var LinkBtn = function (context) {
+        var ui = $.summernote.ui;
+        var container = $('#linkModal');
+
+        // create button
+        var linkBtn = ui.button({
+            contents: '<i class="note-icon-link"/>',
+            tooltip: 'URL링크',
+            popover: 'adfasdf',
+            click: function () {
+                container.modal();
+            }
+        });
+
+        return linkBtn.render();   // return button as jquery object
+    }
+
+    var summernoteOPT = {
+        height: 300,
+        focus: true,
+        callbacks: {
+            onImageUpload: function(files, editor, welEditable) {
+                sendFile(files[0], editor, welEditable);
+            }
+        },
+        toolbar: [
+            ['style', ['style']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol']],
+            ['cBtns', ['imageUploadBtn', 'linkBtn']],
+            ['video', ['video']],
+            //['link', ['link']]
+        ],
+        buttons: {
+            imageUploadBtn: ImageUploadBtn,
+            linkBtn: LinkBtn
+        },
+        popover: {
+            linkBtn: [
+                ['custom', ['linkBtn']]
+            ]
+        }
+    };
+
+    $('#contents').summernote(summernoteOPT);
+
+    // $('#contents').summernote({
+    //     height: 450,
+    //     focus: true,
+    //     toolbar: [
+    //         ['style', ['style']],
+    //         ['fontsize', ['fontsize']],
+    //         ['color', ['color']],
+    //         ['para', ['ul', 'ol']],
+    //         //['picture', ['picture']],
+    //         ['cBtns', ['imageUploadBtn']],
+    //         ['video', ['video']],
+    //         ['link', ['link']]
+    //     ]
+    // });
+
+    $("#imageUploadBtn").on("click", function (e) {
+        //    사진 업로드 버튼 추가 액션
+        var imageForm = $('#imageUploadForm')[0];
+        var mForm = new FormData(imageForm);
+        sendFile(mForm);
+    });
+
+    $("#linkSaveBtn").on("click", function (e) {
+        var linkURL = $('#linkURL').val();
+        var displayName = $('#displayName').val().length === 0 ? linkURL : $('#displayName').val();
+        var editor = $('#contents');
+        var linkHTML = `<a href="${linkURL}" target="_blank">${displayName}</a>`;
+        editor.summernote('code', linkHTML);
+    });
+
+    function sendFile(form, editor, welEditable) {
+        console.log('>>>>>>>>>>>>>>>>>>>>>>>> 파일업로드 프로세스 >>>>>>>>>>>>>>>>>>>>>>>>');
+        // var form_data = new FormData();
+        // form_data.append('file', file);
+
+        console.log(form);
+
+        $.ajax({
+            //url: '/image',
+            url: '/classUtil/FileUpload',
+            enctype: 'multipart/form-data',
+            data: form,
+            type: "POST",
+            cache: false,
+            contentType: false,
+            processData: false,
+            beforeSubmit: function (data, form, option) {
+                // console.info('beforeSubmit');
+                // console.info(data);
+                // console.info(form);
+                // console.info('beforeSubmit');
+                //validation체크
+                //막기위해서는 return false를 잡아주면됨
+                return true;
+            },
+            success: function(response, status) {
+                console.log(response);
+                var locate = response.Location;
+                $('#contents').summernote('insertImage', locate);
+                //$('#imageBoard > ul').append('<li><img src="'+response+'" width="480" height="auto"/></li>');
+            },
+
+            error: function () {
+                // console.info('error');
+            },
+
+        });
+
+        console.log('>>>>>>>>>>>>>>>>>>>>>>>> 파일업로드 프로세스 >>>>>>>>>>>>>>>>>>>>>>>>');
+    }
+
+
+    $(document).ready(function(){
+
+		// $('#summernote').summernote({
+		// 		placeholder: 'write here...test'
+		// });
+
+		//최초 입력할 때
+		$("#memberId").text($.cookie().ID);
+
+		$('#addDate').val($.datepicker.formatDate($.datepicker.ATOM, new Date()));
+
+		$('#monthCodeNb').on('change', function() {
+			var monthCodeNm  = $("#monthCodeNb option:selected").text();
+			$('#monthCodeNm').val(monthCodeNm);
+		});
+
+		$('#gradeCodeNb').on('change', function() {
+			var gradeCodeNm  = $("#gradeCodeNb option:selected").text();
+			$('#gradeCodeNm').val(gradeCodeNm);
+		});
+		$('#monthWeekCodeNb').on('change', function() {
+			var monthWeekCodeNm = $("#monthWeekCodeNb option:selected").text();
+			$('#monthWeekCodeNm').val(monthWeekCodeNm);
+		});
+		$('#subjectCodeNb').on('change', function() {
+			var subjectCodeNm  = $("#subjectCodeNb option:selected").text();
+			$('#subjectCodeNm').val(subjectCodeNm);
+		}); 
+
+		//alert($('#search_curriculum').length);
+
+		/* if(!$('#search_curriculum').text(search_curriculum)){
+			$('#search_curriculum').text('');
+		} else {
+			$('#search_curriculum').text(search_curriculum);
+		}
+
+		if(!$('#search_book').text(search_book)){
+			$('#search_book').text('');
+		} else {
+			$('#search_book').text(search_book);
+		}  */
+
+	});
+
+	
+	$(function () {
+		__progress.init();
+
+		// 에디터 바인딩
+//		$('#contents').wysihtml5();
+		// $('#contents').summernote({
+		// 	height: 350,
+		// 	lang: 'ko-KR'
+		// });
+
+		$('#btnProgress').click(function(){
+			var _return = false;
+
+			if (!$('#curriculum').val()){
+				alert('교과과정명을 입력해 주세요!!');
+				$('#curriculum').focus();
+			}
+			else {
+				_return = true;
+			}			
+
+			if (_return){
+				if ('INSERT' == $('#cmdType').val()){
+					__progress.cmdInsertProgress($('#frm'));
+				} else {
+					//값들을 건들지 않아도.
+
+					$('#gradeCodeNm').val($("#gradeCodeNb option:selected").text());
+					$('#monthCodeNm').val($("#monthCodeNb option:selected").text());
+					$('#monthWeekCodeNm').val($("#monthWeekCodeNb option:selected").text());
+					$('#subjectCodeNm').val($("#subjectCodeNb option:selected").text());
+					__progress.cmdUpdateProgress($('#frm'));
+				}
+				$("#myModal").modal('hide');
+			}
+		});
+
+
+
+		$('#btnProgressDelete').click(function() {
+
+			var _this = $("input[name=checkbox]:checked").map(function(){
+				return $(this).val();
+			}).get();
+
+			__progress.cmdDeleteProgress(_this);
+
+		})
+
+		$('#btnSearchClass').click(function() {
+			var searchText = $("#txt_name").val();
+			var api = __progress.cmdSearchProgress(searchText); //curriculumn text를 던지면 된다.						
+			var container = $("#tblProgressSearch");
+			
+			var modal = $("#myModal2").modal();						
+		});
+
+		$('#btnSearchBook').click(function() {
+			var searchTextBook = $("#txt_book_name").val();
+			var api = __progress.cmdSearchBook(searchTextBook); //txt_book_name text를 던지면 된다.						
+			var container = $("#tblBookSearch");
+			
+			var modal = $("#myModal4").modal();						
+		});
+
+		$('#btnSelectClassTp').click(function() {
+			var _temp = new Object();
+
+			//hidden에 있는 것
+			var boardid = $("#boardId").val();
+
+			//hidden값이 없을 경우 (최초 입력일 경우)
+			if(!boardid){
+
+				//최초 insert
+				//선정한 boardId
+				var _this = $("input[name=checkbox1]:checked").map(function(){
+					return $(this).val();
+				}).get();
+				var pickClassBoardId = _this;
+				//select 해서
+				__progress.cmdSelectUpdateProgress(pickClassBoardId).done(function(_data){
+						$('#search_curriculum').val(_data[0].curriculum);
+						$('#search_curriculum').text($("#search_curriculum").val());					
+						$('#pickClassBoardId').val(pickClassBoardId);					
+	
+						$("#myModal2").modal('hide');							
+				});						
+
+			} else {
+				//기존
+				//선정한 boardId
+				var _this = $("input[name=checkbox1]:checked").map(function(){
+					return $(this).val();
+				}).get();
+				
+				var pickClassBoardId = _this;	//object형식, {"0":"85","1":["58 "]}
+				_temp[0] = boardid;
+				_temp[1] = pickClassBoardId;
+	
+				__progress.cmdSelectUpdateProgress(pickClassBoardId).done(function(_data){
+						$('#search_curriculum').val(_data[0].curriculum);
+						$('#search_curriculum').text($("#search_curriculum").val());					
+						__progress.cmdUpdatePickClassTp(_temp);	//pick된걸로 update
+	
+						$("#myModal2").modal('hide');							
+				});		
+			}
+			
+		});
+
+		$('#btnSelectBookTp').click(function() {
+			var _temp = new Object();
+
+			//hidden에 있는 것
+			var boardid = $("#boardId").val();
+
+			//hidden값이 없을 경우 (최초 입력일 경우)
+			if(!boardid){
+
+				//최초 insert
+				//선정한 boardId
+				var _this = $("input[name=checkbox2]:checked").map(function(){
+					return $(this).val();
+				}).get();
+
+				var pickBookBoardId = _this;
+				//select 해서
+				__progress.cmdSelectBookMngListOne(pickBookBoardId).done(function(_data){
+						$('#search_book').val(_data[0].bookname);
+						$('#search_book').text($("#search_book").val());					
+						$('#pickBookBoardId').val(pickBookBoardId);					
+	
+						$("#myModal4").modal('hide');							
+				});						
+
+			} else {
+				//기존
+				//선정한 boardId
+				var _this = $("input[name=checkbox2]:checked").map(function(){
+					return $(this).val();
+				}).get();
+				
+				var pickBookBoardId = _this;	//object형식, {"0":"85","1":["58 "]}
+				_temp[0] = boardid;
+				_temp[1] = pickBookBoardId;
+	
+				__progress.cmdSelectBookMngListOne(pickBookBoardId).done(function(_data){
+						$('#search_book').val(_data[0].bookname);
+						$('#search_book').text($("#search_book").val());
+						__progress.cmdUpdatePickBookTp(_temp);	//pick된걸로 update
+	
+						$("#myModal4").modal('hide');							
+				});
+			}
+			
+		});		
+	
+	});	
+ 
+		function dataClassOnClickData(el) {
+			var dataIndex = $(el).attr("data-id"); 
+			var data = $("tr[data-index=" + dataIndex + "] td:nth-child(3)").text();
+			$("#search_curriculum").text(data);
+
+		}	
+
+
+
+
+
+		$("#myModal").on('hide.bs.modal', () => { // 모달이 닫힐 때 발생합니다.				
+			$('#txt_name').text("");
+			$('#search_curriculum').text("");	
+
+			$('#txt_book_name').text("");
+			$('#search_book').text("");							
+		});
+		
+		$("button[data-event='edReset']").on('click', () => {
+			$("#contents").summernote('code', '');
+		});
+		
+		$('#myModal').on('show.bs.modal', function (event) {	//모달이 표시하려고 할 때 발생합니다
+			// onImageUpload callback
+			// $('#summernote').summernote({
+			// 	placeholder: 'write here...test'
+			// });												
+
+			$('#txt_name').val("");	//검색값 초기화
+			$('#txt_book_name').val("");	//검색값 초기화
+			$("#pickClassBoardId").val();	//pickClassBoardId 초기화
+			$("#pickBookBoardId").val();	//pickBookBoardId 초기화
+			
+			var button = $(event.relatedTarget);
+			var recipient = button.data('seq');	//boardId
+			var modal = $(this);
+
+			if (!recipient){
+				// 등록 Modal
+				$('#cmdType').val('INSERT');
+
+				// form 초기화
+				$('#frm').each(function(){
+					this.reset();
+					//$(this).find('')[0].reset();
+				});				
+			}
+			else {				
+				// 수정 Modal
+				$('#cmdType').val('UPDATE');
+
+				__progress.cmdSelectUpdateProgress(recipient).done(function(_data){					
+					modal.find('#boardId').val(_data[0].boardId);
+					modal.find('#monthWeekCodeNb').val(_data[0].monthWeekCodeNb);
+					modal.find('#gradeCodeNb').val(_data[0].gradeCodeNb);
+					modal.find('#subjectCodeNb').val(_data[0].subjectCodeNb);
+					modal.find('#curriculum').val(_data[0].curriculum);
+					modal.find('#search_curriculum').text(_data[0].pickClassBoardIdText);
+					modal.find('#search_book').text(_data[0].pickBookBoardIdText);
+					
+					// $('#contents').summernote({
+					// 	height: 150,
+					// 	lang: 'ko-KR'
+					// });
+					$('#contents').summernote('code', _data[0].contents);
+				});
+			}
+		}); 
+
+</script>
+</body>
+</html>

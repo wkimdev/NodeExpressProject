@@ -1,8 +1,7 @@
-process.env.NODE_ENV = (process.env.NODE_ENV && (process.env.NODE_ENV).trim().toLowerCase() == 'production') ? 'production' : 'development';
+process.env.NODE_ENV = ( process.env.NODE_ENV && ( process.env.NODE_ENV ).trim().toLowerCase() == 'production' ) ? 'production' : 'development';
 
 //console.log(process.env);
 
-// genesisjw test
 var express = require('express');
 var fs = require('fs');
 var path = require('path');
@@ -10,6 +9,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var memberLoginDb = require('./model/memberLogin');
 
 var app = express();
 
@@ -18,24 +18,43 @@ app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-	extended: false
-}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 //API DOC Root
-app.use('/docs', express.static(path.join(__dirname, 'docs'), {
-	index: 'index.html'
-}));
+app.use('/docs', express.static(path.join(__dirname, 'docs'), {index: 'index.html'}));
 
 //Admin Page Root
-app.use('/admin', express.static(path.join(__dirname, '_admin'), {
-	index: 'login.html'
-}));
+app.use('/admin', express.static(path.join(__dirname, '_admin'), {index: 'login.html'}));
+
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
+//Util
+app.use('/util', express.static(path.join(__dirname, 'util')));
+
+app.use('/public/html/:cate/:page', function (req, res, next) {
+    var publicPage = ['app-f','app-p','app-u'];
+
+    if ( publicPage.indexOf(req.params.cate.toLowerCase()) == -1 ) {
+        next();
+    } else {
+        if ( req.cookies.ID === undefined ) {
+            res.redirect('/public/html/APP-M/APP-M-02.html');
+        } else {
+
+            next();
+        }
+    }
+});
+
+//client Page Root(사용자단)
+//app.use('/public', express.static(path.join(__dirname, '_public'), {index: 'index.html'}));
+app.use('/public', express.static(path.join(__dirname, 'public'), {index: 'index.html'}));
 
 //Image Upload Test page
 app.get('/fileTest', function (req, res) {
-	res.sendFile(__dirname + '/views/test.html');
+  res.sendFile(__dirname + '/views/test.html');
 });
 
 console.log('---------------------------------------------------------------');
@@ -52,22 +71,22 @@ fs.readdirSync(__dirname + '/routes/').forEach(function (fileName) {
 	}
 });
 
-app.use(function (req, res, next) {
-	var err = new Error('Not Found');
-	err.status = 404;
-	next(err);
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
-app.use(function (err, req, res, next) {
-	// set locals, only providing error in development
-	res.locals.message = err.message;
-	res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-	console.log('res.locals.message = ' + res.locals.message);
-	console.log('res.locals.error = ' + res.locals.error);
+  console.log('res.locals.message = ' + res.locals.message);
+  console.log('res.locals.error = ' + res.locals.error);
 
-	res.status(err.status || 500);
-	res.render('error');
+  res.status(err.status || 500);
+  res.render('error'); 
 });
 
 module.exports = app;
