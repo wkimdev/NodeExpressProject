@@ -50,7 +50,6 @@ router.all('/FileUpload', function(req, res, next) {
 		});
 		
 	});
-	console.log('merged test!');
 	form.parse(req);
 });
 
