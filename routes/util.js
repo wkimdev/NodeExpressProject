@@ -50,11 +50,6 @@ router.all('/FileUpload', function(req, res, next) {
 		});
 		
 	});
-	
-// all uploads are completed
-//	form.on('close',function(){
-//		res.status(200).send('Upload complete');
-//	});
 
 	form.parse(req);
 });
