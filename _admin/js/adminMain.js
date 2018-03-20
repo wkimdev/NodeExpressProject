@@ -146,6 +146,7 @@ var __progress = {
 		//$('.sidebar-menu > .treeview:eq(0) > ul.treeview-menu li:eq(0)').addClass('active');
 
 		this.cmdLoadProgress();
+		console.log('1111');
 	},
 	// 진도 리스트
 	cmdLoadProgress : function(_this) {
