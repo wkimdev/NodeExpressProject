@@ -39,9 +39,8 @@ aws에서 사용가능한 s3스토리지에서 저장을 하게 됩니다.
 ### 로드하는 모듈
 
 
-aws-sdk 모듈 로드 : 해당 모듈은 AWS 서비스를 사용하기 위한 javascript 객체를 제공해준다.
-
-multiparty 모듈은 파일업로드를 위한 npm 모듈.
+- aws-sdk 모듈 로드 : 해당 모듈은 AWS 서비스를 사용하기 위한 javascript 객체를 제공해준다.
+- multiparty 모듈은 파일업로드를 위한 npm 모듈.
 
 
 
