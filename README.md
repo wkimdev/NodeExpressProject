@@ -20,8 +20,14 @@ Express, Node js , AWS, MySQL
 - Express기반으로  Rest api 형식으로 기본정보를 받아오게 구성했습니다. rodule/router로 나누어 Back단 구성(MySQL)
 - npm들을 이용해 필수패키지들을 설치하여 기획서를 기반으로 액션처리 구현
 
-## 1. image file upload 구현
-- [AWS S3 스토리지에 파일업로드 구현/개인블로그정리](https://wkimdev.github.io/node/aws-s3/2018/03/13/node-project-fileUpload/)
+## 1. image file upload 구현  
+## 작동 원리 
+aws에서 사용가능한 s3스토리지에서 저장을 하게 됩니다. 
+
+버킷에 저장하는 multipaty 모듈의 기능을 이용하여
+
+스토리지에 버킷에 저장하게 됩니다.
+
 
 ## install npm
 - aws-sdk
@@ -30,12 +36,7 @@ Express, Node js , AWS, MySQL
 - fs
 - multiparty
 
-## 작동 원리 
-aws에서 사용가능한 s3스토리지에서 저장을 하게 됩니다. 
 
-버킷에 저장하는 multipaty 모듈의 기능을 이용하여
-
-스토리지에 버킷에 저장하게 됩니다.
 
 
 
@@ -97,5 +98,6 @@ router.all('/FileUpload', function(){
     from.parse(req);
 });
 ```
-## 2. [사용자 푸쉬알람 fcm처리/개인블로그정리](https://wkimdev.github.io/node/fcm/2018/03/13/node-project-fcm/).
+- [AWS S3 스토리지에 파일업로드 구현/개인블로그정리](https://wkimdev.github.io/node/aws-s3/2018/03/13/node-project-fileUpload/)
+- [사용자 푸쉬알람 fcm처리/개인블로그정리](https://wkimdev.github.io/node/fcm/2018/03/13/node-project-fcm/).
 
