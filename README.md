@@ -1,22 +1,27 @@
 
 ## Project
-Node js, Express 를 기반으로한 '밥상머리'라는 교육서비스 플랫폼 Project
+javascript기반의 서버 플랫폼으로서 높은 인기도를 얻고 있는
+비동기 프로그래밍 등을 가능하게 하는 Node.js를 선택하여 Express 기반'밥상머리'라는 교육 서비스 플랫폼 베타개발.
 
-## 개발환경
+## 관련 Tech Stack
 Express, Node js , AWS, MySQL
 
-## 역할
-1. Node js, Express 기반 BackEnd단 구성
-2. AWS S3스토리 파일업로드 구성
-3. 테이블설계, ERD 작성
+---
+1. 프로젝트 구분 : 팀프로젝트(2명)
+2. 역할 :  
+> 전담 : 
+> - Express기반으로 기능별로 module/router로 나누어 Back단 구성(MySQL)
+> - AWS의 S3스토리지에 파일업로드 기능 구현
+> - 테이블설계, ERD작성  
+>  
+> 보조 :  view단 구성.
 
+## 구현사항
+- Express기반으로  Rest api 형식으로 기본정보를 받아오게 구성했습니다. rodule/router로 나누어 Back단 구성(MySQL)
+- npm들을 이용해 필수패키지들을 설치하여 기획서를 기반으로 액션처리 구현
 
-## image file upload 구현
-install 한 npm
-작동원리
-소스 설명
-callback개념
-
+## 1. image file upload 구현
+- [AWS S3 스토리지에 파일업로드 구현/개인블로그정리](https://wkimdev.github.io/node/aws-s3/2018/03/13/node-project-fileUpload/)
 
 ## install npm
 - aws-sdk
@@ -92,3 +97,5 @@ router.all('/FileUpload', function(){
     from.parse(req);
 });
 ```
+## 2. [사용자 푸쉬알람 fcm처리/개인블로그정리](https://wkimdev.github.io/node/fcm/2018/03/13/node-project-fcm/).
+
